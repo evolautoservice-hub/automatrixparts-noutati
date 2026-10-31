@@ -1,1 +1,33 @@
-{"updated":null,"items":[]}
+{
+  "updated": "2026-10-31T09:00:00+02:00",
+  "items": [
+    {
+      "id": "2026-10-31-ford-f150-rechemare-cutie-6r80-remediere-suspendata",
+      "date": "2026-10-31T09:00:00+02:00",
+      "title": "Ford F-150: rechemarea pentru cutia 6R80, blocată din cauza pieselor",
+      "slug": "ford-f150-rechemare-cutie-6r80-remediere-suspendata",
+      "excerpt": "Ford a suspendat remedierea software pentru 1,39 milioane de F-150 (2015–2017) care pot retrograda brusc. Ce se întâmplă și ce semnale de alarmă să urmăriți.",
+      "body_html": "<p>Una dintre cele mai mari rechemări în service din 2026 legate de cutiile de viteze automate a intrat într-o fază neașteptată. Ford a oprit temporar remedierea software pentru aproximativ 1,39 milioane de camionete F-150 din anii de model 2015–2017, invocând o problemă legată de piese, fără să comunice un nou calendar. Cazul este urmărit atent peste ocean, dar lecțiile lui sunt valabile pentru orice cutie automată modernă, inclusiv pentru mașinile care circulă pe drumurile din România.</p>\n<h2>Care este defectul</h2>\n<p>Problema vizează cutia automată cu șase trepte <strong>6R80</strong>. În interiorul cutiei se află un <em>lead frame</em> – un cadru cu conexiuni electrice integrate, care duce semnalele senzorilor către electronică. Conform raportului depus la autoritatea americană NHTSA, ciclurile repetate de încălzire și răcire, împreună cu vibrațiile, pot degrada aceste conexiuni. Rezultatul: semnalul senzorului de poziție a selectorului (Transmission Range Sensor) devine intermitent, iar modulul de control al grupului motopropulsor (PCM) îl poate interpreta greșit.</p>\n<p>În acest caz, cutia poate comanda o retrogradare bruscă, nedorită, în timpul mersului – mai multe surse vorbesc de o coborâre direct în treapta a doua. La viteză de croazieră, roțile din spate încetinesc brusc pentru scurt timp și pot aluneca, ceea ce crește riscul de pierdere a controlului. Până în aprilie 2026, datele colectate de Ford includeau sute de reclamații în garanție și rapoarte din teren, două persoane rănite și un accident considerate potențial legate de defect.</p>\n<h2>De ce s-a blocat remedierea</h2>\n<p>Soluția anunțată de Ford are două etape. Prima este o actualizare gratuită a software-ului PCM, cu o logică îmbunătățită care detectează mai bine senzorul defect înainte de a permite o schimbare de treaptă periculoasă. Actualizarea a devenit disponibilă pe 9 iulie 2026, însă la sfârșitul lui octombrie producătorul a confirmat că a pus-o pe pauză din cauza unei probleme cu piesele. Proprietarii au rămas, practic, în așteptare.</p>\n<p>A doua etapă este înlocuirea gratuită a cadrului electric intern, dar numai pentru camionetele la care au apărut deja anumite coduri de eroare asociate senzorului: <strong>P0705, P0706, P0707</strong> sau <strong>P1702</strong>, însoțite de martorul de motor sau de cel cu cheie franceză aprins. Programul are o acoperire extinsă, de 15 ani sau 150.000 de mile. Operațiunea presupune demontarea blocului hidraulic (valve body), deci nu este o intervenție rapidă.</p>\n<h2>Ce înseamnă practic pentru proprietari și mecanici</h2>\n<p>Chiar dacă nu conduceți un F-150, situația ilustrează o realitate a cutiilor automate actuale: multe defecte grave pornesc nu de la piese mecanice uzate, ci de la o conexiune electrică sau un senzor care transmite date eronate. Câteva sfaturi utile:</p>\n<ul>\n<li><strong>Nu ignorați martorii din bord.</strong> Martorul de motor sau cel de service apărut împreună cu schimbări ciudate de treaptă trebuie verificat cât mai repede cu un tester de diagnoză.</li>\n<li><strong>Atenție la simptome.</strong> O retrogradare bruscă fără intervenția șoferului, „smucituri” la viteză constantă sau un spate care derapează scurt în timpul schimbării sunt semnale de alarmă.</li>\n<li><strong>Citiți codurile, nu ghiciți.</strong> Codurile din familia P0705–P0707 indică circuitul senzorului de poziție a selectorului. Înainte de a înlocui piese costisitoare, merită verificate conexiunile și cablajul intern.</li>\n<li><strong>Verificați rechemările.</strong> Pentru mașinile importate din SUA, seria de șasiu (VIN) poate fi verificată în bazele de date oficiale de rechemări. Un vehicul cu o campanie nefinalizată poate ascunde o problemă de siguranță.</li>\n<li><strong>Păstrați dovezile.</strong> Ford acceptă rambursarea reparațiilor la cadrul electric plătite anterior, în anumite condiții și termene, așa că facturile și rapoartele de diagnoză contează.</li>\n</ul>\n<h3>Pentru atelierele din România</h3>\n<p>Dacă la recepție ajunge un F-150 importat din această perioadă, un istoric de coduri legate de senzorul de poziție, chiar șterse anterior, merită notat de la început. Iar dacă se înlocuiește cadrul electric, este un moment bun pentru verificarea stării uleiului ATF și a garniturilor deschise în timpul lucrării.</p>\n<p>Piesele și componentele pentru cutii de viteze automate, de la senzori și cablaje interne până la kituri de reparație, se găsesc pe <a href=\"https://automatrixparts.ro\">automatrixparts.ro</a>.</p>",
+      "sources": [
+        {
+          "title": "Ford pauses recall fix, leaving 2015-2017 F-150 owners in limbo – Atlanta News First",
+          "url": "https://www.atlantanewsfirst.com/2026/10/27/ford-pauses-recall-fix-leaving-2015-2017-f-150-owners-limbo/"
+        },
+        {
+          "title": "Ford F-150 Transmission Recall 26S28: 2015-2017 Guide – Rohnert Park Transmission",
+          "url": "https://rohnertparktransmission.com/blog/ford-f150-transmission-recall-26s28"
+        },
+        {
+          "title": "2015-2017 Ford F-150 Recall: Unexpected Downshift Can Cause Loss of Control – The Weekly Driver",
+          "url": "https://theweeklydriver.com/recalls/2015-2017-ford-f-150-transmission-downshift-recall/"
+        },
+        {
+          "title": "Ford recall 26V237: automatic transmission – CarsMultiverse",
+          "url": "https://carsmultiverse.com/recall/26v237/"
+        }
+      ],
+      "image": null,
+      "product_code": null
+    }
+  ]
+}
