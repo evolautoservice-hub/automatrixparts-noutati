@@ -1,0 +1,38 @@
+AUTOMATRIX MOTORS – SITE (automatrixmotors.ro)
+==============================================
+
+CE CONȚINE ARHIVA
+  index.html                       prima pagină
+  politica-confidentialitate.html  politica GDPR
+  politica-cookies.html            politica de cookie-uri
+  404.html                         pagina pentru linkuri greșite
+  send.php                         trimite pe email cererile din formular
+  .htaccess                        HTTPS forțat, cache, securitate (fișier ascuns!)
+  robots.txt, sitemap.xml          pentru Google
+  site.webmanifest, favicon.ico    iconițe
+  assets/                          stiluri, scripturi, imagini
+
+CUM URCI SITE-UL (cPanel)
+  1. Creează mai întâi adresa de email service@automatrixmotors.ro
+     (cPanel > Email Accounts). Creează și no-reply@automatrixmotors.ro
+     (poate fi un simplu redirecționare/forwarder), ca serverul să accepte expeditorul.
+  2. cPanel > File Manager > public_html.
+     Fă o copie de siguranță a site-ului vechi (selectează tot > Compress),
+     descarc-o, apoi șterge fișierele vechi din public_html.
+  3. Upload > alege automatrixmotors-site.zip > după urcare, click dreapta > Extract.
+     Fișierele trebuie să fie direct în public_html (index.html lângă .htaccess),
+     nu într-un subfolder.
+  4. În File Manager > Settings bifează „Show Hidden Files” ca să vezi .htaccess.
+  5. Activează SSL (cPanel > SSL/TLS Status > Run AutoSSL) dacă nu e deja activ.
+  6. Testează formularul o dată și verifică dacă emailul a ajuns (uită-te și în Spam).
+
+DUPĂ URCARE
+  - Google Search Console: adaugă domeniul și trimite sitemap.xml.
+  - Google Business Profile: pune linkul https://automatrixmotors.ro/ la „Site web”.
+  - Facebook / Instagram / TikTok: actualizează linkul din bio.
+
+SETĂRI OPȚIONALE (assets/js/main.js, la început, în CONFIG)
+  tawk       – chat live cu operator (cont gratuit pe tawk.to). Se încarcă doar
+               după acordul pentru cookie-uri funcționale.
+  ga4        – Google Analytics, doar cu acord „Analiză”.
+  metaPixel  – Meta Pixel pentru reclame, doar cu acord „Marketing”.
