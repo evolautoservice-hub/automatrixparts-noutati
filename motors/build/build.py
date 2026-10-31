@@ -1059,6 +1059,14 @@ def link_card(slug):
     return f'<a href="{url(slug)}"><h3>{esc(t)}</h3><p>{esc(sub)}</p></a>'
 
 
+def sources_html(a):
+    src = [x for x in a.get("sources", []) if isinstance(x, dict) and str(x.get("url", "")).startswith("https://")]
+    if not src:
+        return ""
+    li = "".join(f'<li><a class="link" href="{esc(x["url"])}" target="_blank" rel="noopener nofollow">{esc(x.get("title") or x["url"])}</a></li>' for x in src[:6])
+    return f'<h2>Surse</h2><ul class="dots">{li}</ul>'
+
+
 def article_page(a):
     slug = a["slug"]
     trail = [("Acasă", ""), ("Articole", "articole"), (a["h1"], slug)]
@@ -1068,7 +1076,7 @@ def article_page(a):
 <div class="narrow" style="max-width:820px"><span class="eyebrow">Articol · {a["date"][8:10]}.{a["date"][5:7]}.{a["date"][:4]} · Echipa AutoMatrix Motors</span><h1>{esc(a["h1"])}</h1><p class="lead">{esc(a["lead"])}</p></div></div></section>
 <section class="sec"><div class="wrap article"><div class="prose">{a["body"]}
 <div class="callout" style="margin-top:44px"><p><b>Ai o problemă la cutie?</b> Sună la {PHONE1} sau scrie-ne pe WhatsApp un video cu simptomul. Reparațiile au <b>garanție 24 de luni, fără limită de kilometri, unică în România.</b></p></div>
-<h2>Alte articole</h2><ul class="dots">{others}</ul>
+{sources_html(a)}<h2>Alte articole</h2><ul class="dots">{others}</ul>
 </div>{aside_html(slug)}</div></section>
 {faq_block(a["faq"])}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="sec-head" style="margin-bottom:32px"><h2 style="font-size:var(--s-lg)">Citește și</h2></div><div class="related">{rel}</div></div></section>
