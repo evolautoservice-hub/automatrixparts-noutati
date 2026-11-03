@@ -360,8 +360,50 @@ def scripts(scene=False):
     return f'<script src="/assets/js/main.js?v={v}" defer></script>'
 
 
+# Poze reale din atelier (preluate de pe pagina de Facebook), 03.11.2026
+_AT = "/assets/img/atelier/"
+ATELIER = {
+    "atelier": ("atelier-automatrix-baicoi.jpg", 720, 1279, "Atelierul AutoMatrix Motors din Băicoi, cu o mașină a unui client la intrare",
+                "Atelierul nostru din Băicoi, Str. Înfrățirii nr. 111. Aici ajung mașini din toată zona de sud a țării, pentru reparații cu garanție în scris."),
+    "ulei": ("ulei-uzat-cutie-automata.jpg", 720, 1279, "Piesă dintr-o cutie automată plină de depuneri de ulei degradat",
+             "Așa arată interiorul unei cutii automate la care uleiul nu a fost schimbat la timp: depunerile blochează filtrul și uzează piesele."),
+    "mecatronic": ("reparatie-mecatronic-dsg.jpg", 720, 899, "Mecanic AutoMatrix lucrând la un mecatronic de cutie DSG",
+                   "Lucrare reală în atelier: mecatronicul unei cutii DSG, verificat și reparat pe bancul de lucru."),
+    "dsg": ("cutie-dsg-desfacuta.jpg", 720, 1279, "Cutie DSG cu ambreiaj dublu demontată de pe mașină în atelierul AutoMatrix",
+            "Cutie DSG demontată în atelierul nostru, cu ambreiajul dublu și mecatronicul la vedere, înainte de reparație."),
+}
+ATELIER_PAGES = {
+    "reparatie-mecatronic-dsg": "mecatronic", "coduri-eroare-dsg-dq200": "mecatronic", "coduri-eroare-dsg-dq250": "mecatronic",
+    "coduri-eroare-dsg-dq381": "mecatronic", "coduri-eroare-s-tronic-dl382": "mecatronic", "coduri-eroare-s-tronic-0b5": "mecatronic",
+    "coduri-eroare-cutie-automata": "mecatronic",
+    "reparatie-cutie-dsg": "dsg", "dsg-smuceste-la-plecare": "dsg", "reparatie-cutie-automata-vw-skoda-seat": "dsg",
+    "reparatii-cutii-automate": "dsg", "probleme-cutie-automata": "dsg", "reparatie-cutie-powershift": "dsg",
+    "probleme-powershift-ford-focus": "dsg", "cutie-automata-second-hand-sau-reparatie": "dsg",
+    "revizie-cutie-automata": "ulei", "cand-se-schimba-uleiul-la-cutia-automata": "ulei", "cat-costa-revizia-cutiei-automate": "ulei",
+    "cutie-automata-mod-avarie": "ulei",
+    "despre-noi": "atelier", "reparatie-cutie-automata-audi": "atelier", "reparatie-cutie-automata-bmw": "atelier",
+    "reparatie-cutie-zf": "atelier", "reparatie-cutie-mercedes": "atelier", "reparatie-cutie-aisin": "atelier",
+    "reparatie-cutie-cvt": "atelier", "reparatie-cutie-edc": "atelier", "reconditionare-convertizor-cuplu": "atelier",
+    "reparatii-motoare-performanta": "atelier",
+}
+
+
+def atelier_photo(slug):
+    key = ATELIER_PAGES.get(slug) or ("atelier" if slug.startswith("cutii-automate-") else None)
+    if not key or PREVIEW:
+        return ""
+    f, w, h, alt, cap = ATELIER[key]
+    return (f'<section class="sec atelier-foto"><div class="wrap"><figure class="af"><img src="{_AT}{f}" width="{w}" height="{h}" alt="{esc(alt)}" loading="lazy" decoding="async">'
+            f'<figcaption><span class="eyebrow">Din atelierul nostru</span><p>{esc(cap)}</p>'
+            f'<a class="link" href="{url("lucrari-efectuate")}">Vezi mai multe lucrări efectuate</a></figcaption></figure></div></section>')
+
+
 def page(slug, title, desc, schema, body, active="", scene=False, extra_head=""):
     hd = head(title, desc, slug, schema, extra_head)
+    _ph = atelier_photo(slug)
+    if _ph and "</section>" in body:
+        _i = body.index("</section>") + len("</section>")
+        body = body[:_i] + "\n" + _ph + body[_i:]
     inner = f"""<a class="skip" href="#main">Sari la conținut</a>
 {SPRITE}
 {header(active)}
