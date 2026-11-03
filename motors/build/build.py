@@ -398,6 +398,10 @@ def atelier_photo(slug):
     if not key or PREVIEW:
         return ""
     f, w, h, alt, cap = ATELIER[key]
+    _c = next((c for c in CITIES if c["slug"] == slug), None)
+    if _c:
+        cap = f"Aici ajunge mașina ta din {_c['city']}: atelierul AutoMatrix Motors din Băicoi, la ~{_c['km']} km, adică {_c['time']} de drum."
+        alt = f"Atelierul AutoMatrix Motors din Băicoi, pentru clienții din {_c['city']}"
     return (f'<section class="sec atelier-foto"><div class="wrap"><figure class="af"><img src="{_AT}{f}" width="{w}" height="{h}" alt="{esc(alt)}" loading="lazy" decoding="async">'
             f'<figcaption><span class="eyebrow">Din atelierul nostru</span><p>{esc(cap)}</p>'
             f'<a class="link" href="{url("lucrari-efectuate")}">Vezi mai multe lucrări efectuate</a></figcaption></figure></div></section>')
@@ -718,9 +722,7 @@ def city_page(c):
 <h2>Cum ajungi la noi din {esc(c["city"])}</h2><p>{esc(c["route"])}</p>
 {c["local"]}
 {extra_html}
-<h2>Ce lucrări facem</h2><ul class="dots">{svc}</ul>
-<h2>Prețuri, înainte să pleci de acasă</h2><p>Toate prețurile sunt pe site, cu manoperă inclusă: revizii de la {fmt(min_price(kind="revizie"))} lei, reparații de la {fmt(min_price(kind="reparatie"))} lei. Vezi <a class="link" href="{url("preturi-cutii-automate")}">lista completă de prețuri</a> sau cere o ofertă pentru mașina ta.</p>
-<div class="callout"><p><b>Garanție 24 de luni, fără limită de kilometri, unică în România.</b> Contează mai mult decât câțiva kilometri în plus până la atelier.</p></div>
+<h2>Prețuri și garanție</h2><p>Toate prețurile sunt publice, cu manoperă inclusă: <a class="link" href="{url("preturi-cutii-automate")}">vezi lista de prețuri pe tipuri de cutii</a>. Reparațiile au <b>garanție de 24 de luni, fără limită de kilometri</b>.</p>
 </div>{aside_html(slug)}</div></section>
 {faq_block(c["faq"])}
 {contact_section("Programează mașina pentru o diagnoză")}"""
