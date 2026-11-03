@@ -183,6 +183,11 @@ def footer():
 <li><a href="{MAPS}" target="_blank" rel="noopener">Str. Înfrățirii nr. 111, Băicoi, jud. Prahova</a></li>
 <li>Atelier: L–V 06:00–14:30</li>
 <li>Programări: L–V 07:00–18:00, S 09:00–15:00</li>
+</ul>
+<p class="ft" style="margin-top:26px">REȚEAUA NOASTRĂ</p><ul>
+<li><a href="https://automatrixparts.ro/" target="_blank" rel="noopener">AutoMatrix Parts – piese pentru cutii automate</a></li>
+<li><a href="https://torviapro.ro/" target="_blank" rel="noopener">TORVIA PRO – program pentru service-uri auto</a></li>
+<li><a href="https://evoladvertising.ro/" target="_blank" rel="noopener">Site realizat de E-VOL Advertising</a></li>
 </ul></div>
 </div>
 <div class="foot-legal">
@@ -694,7 +699,16 @@ def price_page():
 # ------------------------------------------------------------------ CITY PAGES
 def city_page(c):
     slug = c["slug"]
-    svc = "".join(f'<li><a class="link" href="{url(p["slug"])}">{esc(p["nav"])}</a>: {esc(p["navsub"])}</li>' for p in PAGES if p["slug"] not in ("probleme-cutie-automata",))
+    from cities_extra import EXTRA
+    ex = EXTRA.get(slug)
+    svc = "".join(f'<li><a class="link" href="{url(p["slug"])}">{esc(p["nav"])}</a></li>' for p in PAGES if p["slug"] not in ("probleme-cutie-automata",))
+    extra_html = ""
+    if ex:
+        h2x, htmlx, faqx, realx = ex
+        extra_html = f"<h2>{esc(h2x)}</h2>{htmlx}"
+        if realx:
+            extra_html += f'<div class="callout"><p><b>Lucrare reală din atelier.</b> {esc(realx)} <a class="link" href="{url("lucrari-efectuate")}">Vezi lucrările efectuate</a></p></div>'
+        c = dict(c, faq=list(c["faq"]) + list(faqx))
     trail = [("Acasă", ""), ("Cutii automate " + c["city"], slug)]
     body = f"""<section class="phero"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{url("")}">Acasă</a></li><li aria-current="page">Cutii automate {esc(c["city"])}</li></ol></nav>
 <div class="grid"><div><span class="eyebrow">Clienți din {esc(c["city"])}, jud. {esc(c["county"])}</span><h1>Reparații cutii automate {esc(c["city"])}</h1><p class="lead">{esc(c["lead"])}</p>
@@ -703,6 +717,7 @@ def city_page(c):
 <section class="sec"><div class="wrap article"><div class="prose">
 <h2>Cum ajungi la noi din {esc(c["city"])}</h2><p>{esc(c["route"])}</p>
 {c["local"]}
+{extra_html}
 <h2>Ce lucrări facem</h2><ul class="dots">{svc}</ul>
 <h2>Prețuri, înainte să pleci de acasă</h2><p>Toate prețurile sunt pe site, cu manoperă inclusă: revizii de la {fmt(min_price(kind="revizie"))} lei, reparații de la {fmt(min_price(kind="reparatie"))} lei. Vezi <a class="link" href="{url("preturi-cutii-automate")}">lista completă de prețuri</a> sau cere o ofertă pentru mașina ta.</p>
 <div class="callout"><p><b>Garanție 24 de luni, fără limită de kilometri, unică în România.</b> Contează mai mult decât câțiva kilometri în plus până la atelier.</p></div>
