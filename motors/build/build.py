@@ -130,7 +130,7 @@ SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="tru
 
 
 def brand(extra=""):
-    return f'<a class="brand{extra}" href="{url("")}" aria-label="AutoMatrix Motors, prima pagină"><img src="{IMG["emb"]}" width="200" height="183" alt=""><span class="brand-txt"><b>AUTOMATRIX</b><span>GEARBOX SPECIALIST</span></span></a>'
+    return f'<a class="brand{extra}" href="{url("")}" aria-label="AutoMatrix Motors, prima pagină"><img src="{IMG["emb"]}" width="200" height="183" alt="AutoMatrix Motors"><span class="brand-txt"><b>AUTOMATRIX</b><span>GEARBOX SPECIALIST</span></span></a>'
 
 
 def header(active=""):
@@ -203,7 +203,7 @@ def chrome_end():
 <button class="fab-btn fab-chat" id="chat-open" type="button" aria-controls="chat" aria-expanded="false" aria-label="Deschide chatul"><svg><use href="#i-chat"/></svg><span class="badge" aria-hidden="true"></span></button>
 </div>
 <section class="chat" id="chat" role="dialog" aria-label="Chat AutoMatrix" hidden>
-<div class="chat-head"><img src="{IMG["emb"]}" width="200" height="183" alt=""><div><b>AutoMatrix Motors</b><span><i></i>Asistent automat, răspunde pe loc</span></div><button class="chat-close" type="button" aria-label="Închide chatul">×</button></div>
+<div class="chat-head"><img src="{IMG["emb"]}" width="200" height="183" alt="AutoMatrix Motors"><div><b>AutoMatrix Motors</b><span><i></i>Asistent automat, răspunde pe loc</span></div><button class="chat-close" type="button" aria-label="Închide chatul">×</button></div>
 <div class="chat-body" aria-live="polite"></div>
 <form class="chat-form"><label class="sr" for="chat-in">Scrie mesajul</label><input id="chat-in" type="text" placeholder="Scrie o întrebare…" autocomplete="off"><button type="submit" aria-label="Trimite"><svg><use href="#i-send"/></svg></button></form>
 </section>
@@ -315,7 +315,17 @@ def service_schema(name, slug, min_price, desc):
     return s
 
 
+# Titluri/descrieri scurtate pentru Google (max 60 / 160 caractere), 03.11.2026
+SEO_OVERRIDES = json.loads((pathlib.Path(__file__).parent / "seo_overrides.json").read_text(encoding="utf-8"))
+
+
 def head(title, desc, slug, schema, extra_head=""):
+    _o = SEO_OVERRIDES.get(slug)
+    if _o:
+        title, desc = _o["title"], _o["desc"]
+    # titlurile noi (ex. articolele automate) nu trebuie să treacă de 60 de caractere
+    if len(title) > 60 and title.endswith(" | AutoMatrix"):
+        title = title[: -len(" | AutoMatrix")]
     ld = json.dumps({"@context": "https://schema.org", "@graph": schema}, ensure_ascii=False, separators=(",", ":"))
     if PREVIEW:
         fonts = f'<link rel="stylesheet" href="{FONTS}">'
@@ -558,7 +568,7 @@ def aside_html(slug):
 
 def spec_html(spec):
     rowsh = "".join(f'<div><dt>{esc(k)}</dt><dd class="{c}">{esc(v)}</dd></div>' for k, v, c in spec)
-    return f'<div class="spec"><div class="spec-h"><span>FIȘĂ TEHNICĂ</span><img src="{IMG["emb"]}" width="200" height="183" alt=""></div><dl>{rowsh}</dl></div>'
+    return f'<div class="spec"><div class="spec-h"><span>FIȘĂ TEHNICĂ</span><img src="{IMG["emb"]}" width="200" height="183" alt="AutoMatrix Motors"></div><dl>{rowsh}</dl></div>'
 
 
 def page_codes(p):
@@ -675,7 +685,7 @@ def legal(slug, src_name, title, desc):
 
 
 def notfound():
-    body = f'<section class="legal" style="text-align:center"><div class="wrap narrow"><img src="{IMG["emb"]}" width="120" height="110" alt="" style="margin:0 auto 26px"><h1>Pagina nu există</h1><p style="margin-top:16px">Linkul e greșit sau pagina a fost mutată.</p><p style="margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn btn-red" href="{url("")}">Mergi la prima pagină</a><a class="btn btn-line" href="{url("preturi-cutii-automate")}">Vezi prețurile</a></p></div></section>'
+    body = f'<section class="legal" style="text-align:center"><div class="wrap narrow"><img src="{IMG["emb"]}" width="120" height="110" alt="AutoMatrix Motors" style="margin:0 auto 26px"><h1>Pagina nu există</h1><p style="margin-top:16px">Linkul e greșit sau pagina a fost mutată.</p><p style="margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn btn-red" href="{url("")}">Mergi la prima pagină</a><a class="btn btn-line" href="{url("preturi-cutii-automate")}">Vezi prețurile</a></p></div></section>'
     c = page("404", "Pagina nu există | AutoMatrix Motors", "Pagina căutată nu există.", [], body)
     c = c.replace('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">', '<meta name="robots" content="noindex">')
     c = re.sub(r'<link rel="canonical"[^>]*>\n', '', c)
