@@ -169,6 +169,7 @@ def footer():
 <li><a href="{url("coduri-eroare-cutie-automata")}">Coduri de eroare cutie automată</a></li>
 <li><a href="{url("probleme-cutie-automata")}">Probleme cutie automată</a></li>
 <li><a href="{url("articole")}">Articole și sfaturi</a></li>
+<li><a href="{url("ghid-video-cutii-automate")}">Ghid video cutii automate</a></li>
 <li><a href="{url("despre-noi")}">Despre AutoMatrix Motors</a></li>
 {brands}
 {cities}
@@ -410,6 +411,13 @@ def atelier_photo(slug):
 def page(slug, title, desc, schema, body, active="", scene=False, extra_head=""):
     hd = head(title, desc, slug, schema, extra_head)
     _ph = atelier_photo(slug)
+    try:
+        _gl = ghid_links(slug)
+    except NameError:
+        _gl = ""
+    if _gl and "</section>" in body:
+        _k = body.index("</section>") + len("</section>")
+        body = body[:_k] + "\n" + _gl + body[_k:]
     if _ph and "</section>" in body:
         _i = body.index("</section>") + len("</section>")
         body = body[:_i] + "\n" + _ph + body[_i:]
@@ -737,7 +745,7 @@ def legal(slug, src_name, title, desc):
     art = re.search(r"<article>(.*?)</article>", srch, re.S).group(1)
     art = art.replace('href="/politica-cookies.html"', f'href="{url("politica-cookies")}"').replace('href="/politica-confidentialitate.html"', f'href="{url("politica-confidentialitate")}"')
     art = art.replace('style="color:var(--red);text-decoration:underline"', 'style="color:var(--red);text-decoration:underline;padding:0"')
-    art = art.replace('<td>Păstrează conversația din chatul live</td><td>sesiune – 6 luni</td><td>terță parte</td></tr>', '<td>Păstrează conversația din chatul live</td><td>sesiune – 6 luni</td><td>terță parte</td></tr><tr><td>datr, sb, fr și altele</td><td>Meta Platforms Ireland (modulul Facebook de pe pagina Lucrări efectuate)</td><td>Afișarea postărilor și a video-urilor de pe pagina noastră de Facebook, doar dacă apeși „Afișează postările” sau „Redă”, ori ai acceptat cookie-urile funcționale</td><td>până la 2 ani</td><td>terță parte</td></tr>')
+    art = art.replace('<td>Păstrează conversația din chatul live</td><td>sesiune – 6 luni</td><td>terță parte</td></tr>', '<td>Păstrează conversația din chatul live</td><td>sesiune – 6 luni</td><td>terță parte</td></tr><tr><td>datr, sb, fr și altele</td><td>Meta Platforms Ireland (modulul Facebook de pe paginile Lucrări efectuate și Ghid video)</td><td>Afișarea postărilor și a video-urilor de pe pagina noastră de Facebook, doar dacă apeși „Afișează postările” sau „Redă”, ori ai acceptat cookie-urile funcționale</td><td>până la 2 ani</td><td>terță parte</td></tr>')
     body = f'<section class="legal"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb" style="padding-top:0"><ol><li><a href="{url("")}">Acasă</a></li><li aria-current="page">{esc(title)}</li></ol></nav><article>{art}</article></div></section>'
     schema = [crumbs_schema([("Acasă", ""), (title, slug)])]
     write(slug, page(slug, title + " | AutoMatrix Motors", desc, schema, body))
@@ -1200,6 +1208,86 @@ def about_page():
     write(slug, page(slug, "Despre AutoMatrix Motors: atelier de cutii automate din Băicoi", "AutoMatrix Motors: atelier specializat în cutii de viteze automate din Băicoi, Prahova. 7 posturi de lucru, 10 mecanici, prețuri publice, garanție 24 luni fără limită de km.", schema, body))
 
 
+# ------------------------------------------------------------------ GHID VIDEO (03.11.2026)
+from ghid import GHID, HUB as GHID_HUB
+import urllib.parse as _up
+
+GHID_BY_BOX = {}
+for _g in GHID:
+    GHID_BY_BOX.setdefault(_g["box"], []).append(_g)
+
+
+def _fb_embed(u):
+    return "https://www.facebook.com/plugins/video.php?href=" + _up.quote(u, safe="") + "&show_text=false&width=360"
+
+
+def video_facade(v, title):
+    link, thumb, w, h, d = v
+    return (f'<figure class="vf"><button class="vf-btn" type="button" data-embed="{esc(_fb_embed(link))}" aria-label="Redă video: {esc(title)}">'
+            f'<img src="/assets/img/ghid/{thumb}" width="{w}" height="{h}" alt="{esc(title)}, video AutoMatrix Motors" loading="lazy" decoding="async">'
+            f'<span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span></button>'
+            f'<figcaption>Video publicat pe {d[8:10]}.{d[5:7]}.{d[:4]} · <a class="link" href="{link}" target="_blank" rel="noopener">deschide pe Facebook</a>. La redare se încarcă playerul Facebook.</figcaption></figure>')
+
+
+VF_JS = """<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.vf-btn');if(!b)return;var f=document.createElement('iframe');f.src=b.getAttribute('data-embed');f.title=b.getAttribute('aria-label');f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.className='vf-frame';b.replaceWith(f);});</script>"""
+
+
+def ghid_page(g):
+    slug = g["slug"]
+    trail = [("Acasă", ""), ("Ghid video", GHID_HUB), (g["h1"], slug)]
+    vids = "".join(video_facade(v, g["h1"]) for v in g["videos"])
+    others = "".join(f'<li><a class="link" href="{url(o["slug"])}">{esc(o["h1"])}</a></li>' for o in GHID if o["slug"] != slug and o["fam"] == g["fam"]) or \
+             "".join(f'<li><a class="link" href="{url(o["slug"])}">{esc(o["h1"])}</a></li>' for o in GHID if o["slug"] != slug)[:2000]
+    body = f"""<section class="phero"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{url("")}">Acasă</a></li><li><a href="{url(GHID_HUB)}">Ghid video</a></li><li aria-current="page">{esc(g["h1"])}</li></ol></nav>
+<div class="narrow" style="max-width:820px"><span class="eyebrow">Ghid video · {esc(g["fam"])} · Echipa AutoMatrix Motors</span><h1>{esc(g["h1"])}</h1><p class="lead">{esc(g["lead"])}</p></div></div></section>
+<section class="sec"><div class="wrap article"><div class="prose">
+<div class="vf-row">{vids}</div>
+{g["body"]}
+<div class="callout" style="margin-top:44px"><p><b>Ai aceeași problemă?</b> Trimite-ne pe WhatsApp, la {PHONE1}, un video cu simptomul și seria de șasiu. Reparațiile au <b>garanție 24 de luni, fără limită de kilometri.</b></p></div>
+<h2>Alte clipuri din ghid</h2><ul class="dots">{others}</ul>
+<p>Mai multe clipuri găsești pe <a class="link" href="{FB}" target="_blank" rel="noopener">pagina noastră de Facebook</a> și pe <a class="link" href="{TT}" target="_blank" rel="noopener">TikTok</a>.</p>
+</div>{aside_html(slug)}</div></section>
+{faq_block(g["faq"])}
+{contact_section()}
+{VF_JS}"""
+    first = g["videos"][0]
+    vobj = [{"@type": "VideoObject", "name": g["h1"] if i == 0 else g["h1"] + f" (partea {i+1})", "description": g["desc"],
+             "thumbnailUrl": SITE + "/assets/img/ghid/" + v[1], "uploadDate": v[4], "embedUrl": _fb_embed(v[0]), "url": v[0],
+             "publisher": {"@id": SITE + "/#business"}, "inLanguage": "ro-RO"} for i, v in enumerate(g["videos"])]
+    schema = [{"@type": "Article", "@id": canon(slug) + "#article", "headline": g["h1"], "description": g["desc"], "datePublished": first[4], "dateModified": "2026-11-03",
+               "inLanguage": "ro-RO", "author": {"@type": "Organization", "name": "AutoMatrix Motors", "url": SITE + "/"}, "publisher": {"@id": SITE + "/#business"},
+               "mainEntityOfPage": canon(slug), "image": SITE + "/assets/img/ghid/" + first[1], "video": vobj}, crumbs_schema(trail), faq_schema(g["faq"])]
+    write(slug, page(slug, g["title"], g["desc"], schema, body, active="articole"))
+
+
+def ghid_hub():
+    slug = GHID_HUB
+    fams = []
+    for g in GHID:
+        if g["fam"] not in fams:
+            fams.append(g["fam"])
+    sections = ""
+    for f in fams:
+        cards = "".join(f'<a class="vh-card" href="{url(g["slug"])}"><img src="/assets/img/ghid/{g["videos"][0][1]}" width="900" height="1600" alt="{esc(g["h1"])}" loading="lazy" decoding="async"><span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span><h3>{esc(g["h1"])}</h3></a>' for g in GHID if g["fam"] == f)
+        sections += f'<h2>{"Întrebări generale" if f == "General" else "Cutii " + esc(f)}</h2><div class="vh-grid">{cards}</div>'
+    body = f"""<section class="phero"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{url("")}">Acasă</a></li><li aria-current="page">Ghid video</li></ol></nav>
+<div class="narrow" style="max-width:820px"><span class="eyebrow">Ghid video</span><h1>Cutii automate explicate de mecanici</h1><p class="lead">Clipuri scurte filmate de echipa AutoMatrix Motors, despre defectele pe care le vedem cel mai des la cutiile DSG, S tronic și ZF: cum le recunoști, ce le provoacă și ce faci înainte să se transforme într-o reparație mare.</p></div></div></section>
+<section class="sec"><div class="wrap">{sections}
+<p style="margin-top:36px">Lista completă a clipurilor e pe <a class="link" href="{FB}" target="_blank" rel="noopener">Facebook</a> și pe <a class="link" href="{TT}" target="_blank" rel="noopener">TikTok</a>. Pentru coduri de eroare, vezi <a class="link" href="{url("coduri-eroare-cutie-automata")}">ghidul codurilor de eroare</a>.</p></div></section>
+{contact_section()}"""
+    schema = [{"@type": "CollectionPage", "@id": canon(slug) + "#page", "name": "Ghid video: cutii automate explicate de mecanici", "url": canon(slug), "inLanguage": "ro-RO",
+               "hasPart": [{"@type": "Article", "headline": g["h1"], "url": canon(g["slug"])} for g in GHID]}, crumbs_schema([("Acasă", ""), ("Ghid video", slug)])]
+    write(slug, page(slug, "Ghid video cutii automate: DSG, S tronic, ZF | AutoMatrix", "Clipuri filmate de mecanicii AutoMatrix Motors despre defectele tipice ale cutiilor DSG, S tronic și ZF 8HP: simptome, cauze și ce faci la timp.", schema, body, active="articole"))
+
+
+def ghid_links(slug):
+    gs = GHID_BY_BOX.get(slug)
+    if not gs or slug.startswith("ghid-"):
+        return ""
+    li = "".join(f'<li><a class="link" href="{url(g["slug"])}">{esc(g["h1"])}</a></li>' for g in gs)
+    return f'<section class="sec ghid-links"><div class="wrap"><div class="callout"><p><b>Video din atelier despre această cutie</b></p><ul class="dots">{li}</ul><p><a class="link" href="{url(GHID_HUB)}">Toate clipurile din ghidul video</a></p></div></div></section>'
+
+
 attach_box_codes()
 for _a in ARTICLES:
     article_page(_a)
@@ -1216,13 +1304,16 @@ for p in PAGES:
 price_page()
 for c in CITIES:
     city_page(c)
+for _g in GHID:
+    ghid_page(_g)
+ghid_hub()
 legal("politica-confidentialitate", "politica-confidentialitate.html", "Politica de confidențialitate", "Cum prelucrează E-VOL AUTO SERVICE CENTER S.R.L. (AutoMatrix Motors) datele personale, conform GDPR și Legii nr. 190/2018.")
 legal("politica-cookies", "politica-cookies.html", "Politica de cookie-uri", "Ce cookie-uri folosește automatrixmotors.ro și cum îți poți schimba acordul, conform Legii nr. 506/2004 și GDPR.")
 if not PREVIEW:
     (OUT / "assets/js").mkdir(parents=True, exist_ok=True)
     (OUT / "assets/js/main.js").write_text(MAINJS)
     notfound()
-    slugs = [""] + [p["slug"] for p in PAGES] + ["preturi-cutii-automate", "lucrari-efectuate", "coduri-eroare-cutie-automata"] + [b["slug"] for b in BOXES] + ["articole", "despre-noi"] + [a["slug"] for a in ARTICLES] + [c["slug"] for c in CITIES] + ["politica-confidentialitate", "politica-cookies"]
+    slugs = [""] + [p["slug"] for p in PAGES] + ["preturi-cutii-automate", "lucrari-efectuate", "coduri-eroare-cutie-automata"] + [b["slug"] for b in BOXES] + ["articole", "despre-noi"] + [a["slug"] for a in ARTICLES] + [c["slug"] for c in CITIES] + [GHID_HUB] + [g["slug"] for g in GHID] + ["politica-confidentialitate", "politica-cookies"]
     pri = {"": "1.0", "reparatii-cutii-automate": "0.9", "preturi-cutii-automate": "0.9", "politica-confidentialitate": "0.2", "politica-cookies": "0.2"}
     lm = {a["slug"]: a["date"] for a in ARTICLES}
     lm["articole"] = max([UPDATED] + [a["date"] for a in ARTICLES])
