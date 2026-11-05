@@ -1,6 +1,38 @@
 {
-  "updated": "2026-11-03T08:36:58+02:00",
+  "updated": "2026-11-05T08:40:32+02:00",
   "items": [
+    {
+      "id": "2026-11-05-lincoln-rechemare-hibride-ulei-anticoroziune-modul-parcare-neutru",
+      "date": "2026-11-05T08:40:32+02:00",
+      "title": "Lincoln recheamă hibridele Nautilus și Corsair: un ulei anticoroziune poate trece cutia în neutru",
+      "slug": "lincoln-rechemare-hibride-ulei-anticoroziune-modul-parcare-neutru",
+      "excerpt": "O schimbare de ulei anticoroziune la un furnizor a corodat electronica unui modul de parcare. Cutia poate trece în neutru din mers. Ce arată cazul despre hibridele moderne.",
+      "body_html": "<p>Un defect de transmisie nu pornește întotdeauna de la ambreiaje, ulei uzat sau supape blocate. Lincoln, marca de lux a Ford, recheamă în Statele Unite 11.623 de SUV-uri hibride noi, iar cauza este surprinzător de mică: un ulei anticoroziune folosit la asamblarea unui modul electronic. Rechemarea, înregistrată la autoritatea americană NHTSA cu numărul 26V688, arată cât de mult depinde azi funcționarea unei cutii automate de câteva componente electronice aparent minore.</p>\n\n<h2>Ce mașini sunt vizate</h2>\n<ul>\n<li><strong>Lincoln Nautilus Hybrid 2026–2027</strong> – 11.560 de exemplare, produse între 9 septembrie 2025 și 6 august 2026;</li>\n<li><strong>Lincoln Corsair Hybrid 2027</strong> – 63 de exemplare, produse între 12 martie și 8 iulie 2026.</li>\n</ul>\n<p>Alte 248 de mașini sunt rechemate în Canada. Ford estimează că defectul există la toate vehiculele incluse, nu doar la o mică parte dintre ele. Compania spune că nu are cunoștință de accidente sau răniți, iar până la finalul lui septembrie primise 15 solicitări în garanție în SUA.</p>\n\n<h2>Cum ajunge un ulei să oprească tracțiunea</h2>\n<p>Piesa în cauză este modulul integrat de parcare (Integrated Park Module, IPM), care gestionează actuatorul blocajului de parcare din transmisia HF55. Conform raportului citat de presa auto americană, furnizorul modulului a schimbat uleiul anticoroziune fără să anunțe Ford și fără testele de validare necesare.</p>\n<p>Lanțul defecțiunii are câțiva pași:</p>\n<ol>\n<li>noul ulei ajunge pe placa electronică din modul;</li>\n<li>degradează stratul protector (conformal coating) care acoperă circuitele;</li>\n<li>apare coroziune, iar tensiunea din circuitul senzorului rotativ scade neașteptat;</li>\n<li>sistemul de control interpretează scăderea ca pe o defecțiune și comandă trecerea în neutru, chiar dacă mașina rulează.</li>\n</ol>\n<p>Rezultatul este pierderea bruscă a tracțiunii la roți, cu risc de coliziune din spate în trafic. Aceeași problemă poate împiedica scoaterea mașinii din poziția Park.</p>\n\n<h2>Ce simptome apar</h2>\n<p>Pe bord se poate aprinde martorul în formă de cheie, însoțit de mesajul „Service Vehicle Soon” sau „Shifting System Error”. Avertizarea poate apărea cu mult înainte de trecerea în neutru sau chiar în momentul acesteia, deci nu oferă mereu timp de reacție. Ford a pornit investigația de la astfel de semnalări pe hibride cu transmisie HF55, inclusiv două solicitări în garanție pentru Ford Edge hibrid, în care era descrisă pierderea puterii.</p>\n\n<h2>Remedierea</h2>\n<p>Reparația este gratuită: reprezentanțele înlocuiesc modulul cu unul actualizat, fără uleiul problematic și cu cel mai recent software. Piesele sunt încă în curs de distribuție, așa că proprietarii primesc, începând cu 2 noiembrie, o primă scrisoare de informare, iar a doua va veni când atelierele au stocuri suficiente. Campania Ford are numărul 26S75, iar seriile de șasiu se pot verifica pe site-ul NHTSA de la 26 octombrie.</p>\n\n<h2>Ce înseamnă pentru șoferii și mecanicii din România</h2>\n<p>Cele două modele nu sunt mașini obișnuite pe drumurile noastre, dar cazul este util dincolo de SUA. Hibridele și mașinile cu selector electronic depind de senzori și module pe care șoferul nu le vede niciodată.</p>\n<ul>\n<li><strong>Nu ignorați avertizările de tip „shifting system” sau „service soon”.</strong> Chiar dacă mașina merge normal după repornire, cereți o citire a codurilor de eroare.</li>\n<li><strong>Dacă mașina trece singură în neutru,</strong> semnalizați, porniți avariile și opriți într-un loc sigur. Nu încercați să forțați selectorul în mers.</li>\n<li><strong>La o mașină importată din SUA,</strong> verificați seria de șasiu în baza NHTSA înainte de cumpărare și întrebați o reprezentanță dacă rechemarea poate fi efectuată în țară.</li>\n<li><strong>Mecanicii</strong> nu ar trebui să trateze automat o pierdere bruscă a tracțiunii ca pe o problemă hidraulică. Înainte de a demonta cutia, merită verificate codurile, tensiunile senzorilor și conectorii.</li>\n<li><strong>Consultați rechemările active pentru model</strong> înainte de a plăti reparații la transmisie, mai ales la mașini recente. Dacă defectul este acoperit, costul poate cădea în sarcina producătorului.</li>\n</ul>\n<p>Lecția de fond este și una de control al calității: o substanță schimbată fără anunț în lanțul de aprovizionare a ajuns să scoată din funcțiune tracțiunea unor mașini noi. Pe măsură ce transmisiile devin tot mai electronice, depanarea lor cere la fel de multă atenție pentru circuite ca pentru pinioane și ambreiaje.</p>\n\n<p>Piesele pentru cutii de viteze automate se găsesc pe <a href=\"https://automatrixparts.ro\">automatrixparts.ro</a>.</p>",
+      "sources": [
+        {
+          "title": "Motor1: Lincoln Recalls 11,623 Nautilus And Corsair Hybrids After Unexpected Neutral Shifts",
+          "url": "https://www.motor1.com/news/814060/lincoln-hybrid-recall-over-sudden/"
+        },
+        {
+          "title": "Autoblog: Lincoln Recalls 11,623 SUVs That May Shift Into Neutral While Driving",
+          "url": "https://www.autoblog.com/news/lincoln-recalls-11623-suvs-that-may-shift-into-neutral-while-driving"
+        },
+        {
+          "title": "Kelley Blue Book: Lincoln Recalls Over 11,000 Vehicles That Can Slip Into Neutral",
+          "url": "https://www.kbb.com/car-news/lincoln-recalls-over-11000-vehicles-that-can-slip-into-neutral/"
+        },
+        {
+          "title": "TopSpeed: Lincoln's Newest Hybrid SUVs Recalled For Sketchy Shifting",
+          "url": "https://www.topspeed.com/lincoln-nautilus-corsair-hybrid-neutral-shift-recall/"
+        },
+        {
+          "title": "Auto123: Lincoln Recalls Corsair, Nautilus Hybrids That Could Shift Suddenly into Neutral",
+          "url": "https://www.auto123.com/en/news/recall-lincoln-corsair-nautilus-transmission/74336/"
+        }
+      ],
+      "image": null,
+      "product_code": null
+    },
     {
       "id": "2026-11-03-zf-kituri-reparatie-transmisii-hibride-8hp",
       "date": "2026-11-03T08:36:58+02:00",
